@@ -1,0 +1,513 @@
+# AI-Assisted Centralized Grading System - Development Prompts
+
+## Project Overview
+Create a secure, cloud-based ML system for government education departments that grades standardized exams faster, cheaper, and more reliably than human-only marking.
+
+## Tech Stack Requirements
+- **Frontend**: React.js 18+ with TypeScript, TailwindCSS for styling
+- **Backend**: Node.js with Express.js and TypeScript
+- **Database**: PostgreSQL with Prisma ORM
+- **ML/AI**: Python with FastAPI for ML services, PyTorch, Hugging Face Transformers
+- **OCR**: Tesseract.js for client-side, Google Vision API for server-side
+- **Authentication**: JWT with role-based access control
+- **File Storage**: AWS S3 or Google Cloud Storage
+- **Deployment**: Docker containers, AWS/GCP for cloud hosting
+- **Real-time**: Socket.io for live updates
+- **Security**: bcrypt for password hashing, helmet.js for security headers
+
+---
+
+## PROMPT 1: Project Structure & Setup
+
+**Instruction to AI:**
+```
+Create a comprehensive project structure for an AI-assisted grading system with the following requirements:
+
+1. **Root Directory Structure:**
+   - Frontend (React + TypeScript + TailwindCSS)
+   - Backend (Node.js + Express + TypeScript)
+   - ML Service (Python FastAPI)
+   - Database (PostgreSQL with Prisma)
+   - Docker configuration files
+   - Environment configuration files
+
+2. **Package.json files** for both frontend and backend with all necessary dependencies:
+   - Frontend: React 18, TypeScript, TailwindCSS, Axios, Socket.io-client, React Router DOM, React Hook Form, Zod for validation
+   - Backend: Express, TypeScript, Prisma, PostgreSQL, JWT, bcrypt, helmet, cors, socket.io, multer, nodemailer
+
+3. **Python requirements.txt** for ML service:
+   - FastAPI, uvicorn, PyTorch, transformers, Pillow, pytesseract, opencv-python, scikit-learn, numpy, pandas
+
+4. **Docker files** for each service and docker-compose.yml for orchestration
+
+5. **Database schema** using Prisma with tables for:
+   - Users (teachers, admins, reviewers)
+   - Exams (exam metadata, subjects, rubrics)
+   - Papers (scanned papers, student info)
+   - Grades (AI scores, human reviews, final grades)
+   - Audit logs
+
+Create all configuration files and explain how each service connects to others.
+```
+
+---
+
+## PROMPT 2: Authentication & User Management System
+
+**Instruction to AI:**
+```
+Create a complete authentication and user management system with the following specifications:
+
+1. **User Roles & Permissions:**
+   - Admin: Full system access, user management, exam setup
+   - Examiner: Paper review, grade adjustment, audit capabilities
+   - Viewer: Read-only access to results and reports
+   - System: For automated processes
+
+2. **Backend Authentication API:**
+   - JWT-based authentication with refresh tokens
+   - Role-based access control middleware
+   - Password hashing with bcrypt
+   - Password reset functionality via email
+   - Session management with blacklist for logout
+
+3. **Frontend Authentication Components:**
+   - Login/logout forms with validation
+   - Protected routes based on user roles
+   - User profile management
+   - Password reset flow
+   - Session timeout handling
+
+4. **Database Models:**
+   - User table with roles, permissions, audit fields
+   - Session/token management tables
+   - Password reset tokens table
+
+5. **Security Features:**
+   - Rate limiting for login attempts
+   - Account lockout after failed attempts
+   - Secure headers with helmet.js
+   - Input validation and sanitization
+
+Implement all authentication flows with proper error handling and security best practices.
+```
+
+---
+
+## PROMPT 3: Paper Upload & OCR Processing System
+
+**Instruction to AI:**
+```
+Create a comprehensive paper upload and OCR processing system:
+
+1. **Frontend Upload Interface:**
+   - Drag-and-drop file upload component
+   - Bulk upload functionality for multiple papers
+   - Progress indicators and upload status
+   - Image preview with crop/rotate capabilities
+   - Batch operations for processing multiple files
+
+2. **Backend File Processing:**
+   - Multer configuration for file uploads
+   - File validation (format, size, quantity limits)
+   - Secure file storage using AWS S3 or Google Cloud
+   - Image preprocessing (rotation, noise reduction, contrast enhancement)
+   - Queue system for batch processing
+
+3. **OCR Integration:**
+   - Tesseract.js for client-side preview OCR
+   - Google Vision API integration for server-side processing
+   - Handwritten text recognition capabilities
+   - Text extraction with confidence scores
+   - Error handling for poor quality scans
+
+4. **Data Processing Pipeline:**
+   - Text cleaning and normalization
+   - Student information extraction (ID numbers, names)
+   - Question segmentation and identification
+   - Answer extraction per question
+   - Quality validation and flagging
+
+5. **Real-time Updates:**
+   - Socket.io integration for processing status updates
+   - Progress tracking for large batches
+   - Error notifications and retry mechanisms
+
+Create the complete pipeline from upload to processed text ready for AI grading.
+```
+
+---
+
+## PROMPT 4: AI Grading Engine & ML Service
+
+**Instruction to AI:**
+```
+Create a comprehensive AI grading engine using Python FastAPI:
+
+1. **ML Service Architecture:**
+   - FastAPI application with async endpoints
+   - Model loading and caching system
+   - Queue system for handling multiple grading requests
+   - Health check and monitoring endpoints
+
+2. **Essay Grading Models:**
+   - Fine-tuned BERT/RoBERTa for essay scoring
+   - Separate models for different subjects (Literature, History, Science)
+   - Multi-criteria grading (content, grammar, structure, creativity)
+   - Confidence scoring for each grade
+
+3. **Math/Science Answer Grading:**
+   - Symbolic AI for mathematical expressions
+   - Step-by-step solution validation
+   - Formula recognition and verification
+   - Partial credit calculation
+
+4. **Grading Pipeline:**
+   - Text preprocessing and cleaning
+   - Subject classification
+   - Answer type detection (essay, short answer, multiple choice)
+   - Appropriate model selection and execution
+   - Score normalization and confidence calculation
+
+5. **API Endpoints:**
+   - POST /grade-single: Grade individual answer
+   - POST /grade-batch: Grade multiple papers
+   - GET /grade-status/{job_id}: Check grading progress
+   - POST /retrain: Model retraining with feedback
+   - GET /model-info: Model version and performance metrics
+
+6. **Integration Features:**
+   - RESTful API for backend communication
+   - Async processing for large batches
+   - Error handling and retry mechanisms
+   - Logging and audit trail
+
+Include model training scripts and evaluation metrics (Cohen's Kappa, accuracy).
+```
+
+---
+
+## PROMPT 5: Teacher Review Dashboard
+
+**Instruction to AI:**
+```
+Create a comprehensive teacher review dashboard for human oversight:
+
+1. **Main Dashboard Interface:**
+   - Overview of pending reviews, completed grades, system statistics
+   - Filter and search functionality (by subject, grade range, confidence score)
+   - Batch assignment of papers to reviewers
+   - Real-time notifications for new assignments
+
+2. **Paper Review Interface:**
+   - Split-screen view: original scanned paper and extracted text
+   - AI grade display with confidence score and reasoning
+   - Rubric-based scoring interface
+   - Side-by-side comparison of similar answers
+   - Comment and feedback system
+
+3. **Grading Tools:**
+   - Adjustable scoring sliders with rubric criteria
+   - Quick action buttons (approve, reject, flag for discussion)
+   - Bulk operations for similar answers
+   - Save draft functionality for incomplete reviews
+
+4. **Collaboration Features:**
+   - Discussion threads for disputed grades
+   - Supervisor escalation system
+   - Consensus building tools for multiple reviewers
+   - History of all grade changes with reasoning
+
+5. **Analytics & Reporting:**
+   - Individual reviewer performance metrics
+   - AI vs human agreement rates
+   - Grade distribution analysis
+   - Time-to-completion tracking
+   - Export functionality for reports
+
+6. **Quality Assurance:**
+   - Random sampling for quality checks
+   - Inter-rater reliability calculations
+   - Bias detection and alerts
+   - Calibration exercises for new reviewers
+
+Implement responsive design for tablet and desktop use with keyboard shortcuts for efficiency.
+```
+
+---
+
+## PROMPT 6: Admin Panel & System Management
+
+**Instruction to AI:**
+```
+Create a comprehensive admin panel for system management:
+
+1. **User Management:**
+   - User creation, editing, deactivation
+   - Role assignment and permission management
+   - Bulk user operations (import from CSV, mass updates)
+   - User activity monitoring and audit logs
+
+2. **Exam Configuration:**
+   - Exam creation wizard with subject, rubrics, marking schemes
+   - Question bank management
+   - Grading criteria configuration
+   - Model assignment per subject/exam type
+   - Deadline and timeline management
+
+3. **System Monitoring:**
+   - Real-time system health dashboard
+   - OCR processing queue status
+   - ML service performance metrics
+   - Database performance and storage usage
+   - Error logs and alert system
+
+4. **Data Management:**
+   - Bulk data import/export functionality
+   - Database backup and restore tools
+   - Data retention policy management
+   - GDPR compliance tools (data deletion, anonymization)
+
+5. **Reporting & Analytics:**
+   - System usage statistics
+   - Cost analysis and ROI calculations
+   - Performance benchmarks vs traditional grading
+   - Grade distribution and statistical analysis
+   - Custom report builder
+
+6. **Security & Compliance:**
+   - Audit log viewer with advanced filtering
+   - Security settings and access controls
+   - Compliance monitoring and reporting
+   - System configuration backup
+
+Include comprehensive permission checks and activity logging throughout.
+```
+
+---
+
+## PROMPT 7: Results Dashboard & Student Interface
+
+**Instruction to AI:**
+```
+Create student-facing results dashboard and public interfaces:
+
+1. **Student Results Portal:**
+   - Secure login with student credentials
+   - Grade display with detailed breakdown
+   - Feedback and improvement suggestions
+   - Historical performance tracking
+   - Appeal/review request functionality
+
+2. **Public Results Interface:**
+   - Bulk results publication system
+   - Statistical summaries without personal data
+   - Grade distribution charts and analysis
+   - Export functionality for educational institutions
+
+3. **Notification System:**
+   - Email notifications for grade publication
+   - SMS alerts for urgent updates
+   - Parent/guardian notification options
+   - Customizable notification preferences
+
+4. **Appeal Management:**
+   - Online appeal submission system
+   - Document upload for supporting evidence
+   - Appeal tracking and status updates
+   - Reviewer assignment for appeals
+
+5. **Data Visualization:**
+   - Interactive charts for grade distributions
+   - Performance comparison tools
+   - Trend analysis over time
+   - Subject-wise performance breakdown
+
+Create mobile-responsive design with accessibility compliance (WCAG 2.1).
+```
+
+---
+
+## PROMPT 8: Integration & Deployment Setup
+
+**Instruction to AI:**
+```
+Create complete integration and deployment configuration:
+
+1. **API Integration Layer:**
+   - RESTful API design with OpenAPI documentation
+   - Service-to-service communication setup
+   - Error handling and retry mechanisms
+   - Rate limiting and throttling
+
+2. **Database Integration:**
+   - Prisma setup with all necessary models
+   - Database migrations and seeding scripts
+   - Connection pooling and optimization
+   - Backup and recovery procedures
+
+3. **Security Implementation:**
+   - HTTPS enforcement and SSL configuration
+   - Input validation and sanitization
+   - SQL injection prevention
+   - XSS and CSRF protection
+   - File upload security measures
+
+4. **Docker Configuration:**
+   - Multi-stage Docker builds for optimization
+   - Docker-compose for local development
+   - Environment variable management
+   - Health checks and restart policies
+
+5. **Cloud Deployment:**
+   - AWS/GCP deployment scripts
+   - Load balancer configuration
+   - Auto-scaling setup
+   - Monitoring and alerting (CloudWatch/Stackdriver)
+   - CDN setup for static assets
+
+6. **CI/CD Pipeline:**
+   - GitHub Actions or GitLab CI configuration
+   - Automated testing and code quality checks
+   - Staged deployments (dev, staging, production)
+   - Database migration automation
+
+7. **Monitoring & Logging:**
+   - Application performance monitoring
+   - Error tracking and alerting
+   - Comprehensive logging strategy
+   - Analytics and usage tracking
+
+Include all necessary configuration files and deployment documentation.
+```
+
+---
+
+## PROMPT 9: Testing & Quality Assurance
+
+**Instruction to AI:**
+```
+Create comprehensive testing suite and quality assurance framework:
+
+1. **Frontend Testing:**
+   - Jest and React Testing Library setup
+   - Component unit tests
+   - Integration tests for user flows
+   - E2E tests with Cypress or Playwright
+   - Accessibility testing
+
+2. **Backend Testing:**
+   - Jest configuration for Node.js
+   - API endpoint testing with supertest
+   - Database testing with test database
+   - Authentication and authorization tests
+   - File upload and processing tests
+
+3. **ML Service Testing:**
+   - Python unit tests with pytest
+   - Model performance validation
+   - API endpoint testing
+   - Load testing for batch processing
+   - Accuracy benchmarking scripts
+
+4. **Integration Testing:**
+   - Cross-service communication tests
+   - Database transaction tests
+   - File processing pipeline tests
+   - Real-time notification tests
+
+5. **Performance Testing:**
+   - Load testing scripts
+   - Database performance optimization
+   - OCR processing benchmarks
+   - Memory and CPU usage profiling
+
+6. **Security Testing:**
+   - Penetration testing scripts
+   - Vulnerability scanning
+   - Authentication bypass tests
+   - Input validation tests
+
+Include test data generation, mocking strategies, and continuous testing integration.
+```
+
+---
+
+## PROMPT 10: Documentation & Training Materials
+
+**Instruction to AI:**
+```
+Create comprehensive documentation and training materials:
+
+1. **Technical Documentation:**
+   - API documentation with Swagger/OpenAPI
+   - Database schema documentation
+   - Architecture diagrams and system flow
+   - Deployment and maintenance guides
+   - Troubleshooting and FAQ sections
+
+2. **User Manuals:**
+   - Admin user guide with screenshots
+   - Teacher/reviewer handbook
+   - Student portal usage guide
+   - Mobile app usage instructions
+
+3. **Training Materials:**
+   - Video tutorial scripts
+   - Interactive training modules
+   - Best practices guide for reviewers
+   - Quality assurance checklists
+
+4. **System Administration:**
+   - Installation and setup guides
+   - Configuration management
+   - Backup and recovery procedures
+   - Security hardening checklist
+   - Performance tuning guide
+
+5. **Developer Documentation:**
+   - Code contribution guidelines
+   - Development environment setup
+   - Testing procedures
+   - Release management process
+
+Include both technical and non-technical documentation with regular update procedures.
+```
+
+---
+
+## Final Integration Instructions
+
+After completing all components, provide these final integration steps:
+
+1. **Service Connection Verification:**
+   - Test all API endpoints between services
+   - Verify database connections and transactions
+   - Confirm file upload and processing pipeline
+   - Validate real-time notifications
+
+2. **End-to-End Testing:**
+   - Complete grading workflow from upload to results
+   - User authentication and authorization flows
+   - Admin panel functionality
+   - Mobile responsiveness
+
+3. **Performance Optimization:**
+   - Database query optimization
+   - Image processing optimization
+   - Caching strategy implementation
+   - Load balancing configuration
+
+4. **Security Hardening:**
+   - Security header configuration
+   - Input validation implementation
+   - File upload restrictions
+   - Rate limiting setup
+
+5. **Production Readiness:**
+   - Environment configuration
+   - Monitoring and alerting setup
+   - Backup procedures
+   - Disaster recovery plan
+
+This comprehensive system will provide a secure, scalable, and efficient AI-assisted grading platform for government education departments.
