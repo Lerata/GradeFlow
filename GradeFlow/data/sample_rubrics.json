@@ -1,0 +1,152 @@
+{
+  "english": {
+    "criteria": {
+      "content": {
+        "weight": 0.4,
+        "max_score": 40,
+        "description": "Quality of ideas, arguments, and examples"
+      },
+      "structure": {
+        "weight": 0.2,
+        "max_score": 20,
+        "description": "Organization, flow, and coherence"
+      },
+      "grammar": {
+        "weight": 0.2,
+        "max_score": 20,
+        "description": "Grammar, spelling, and sentence structure"
+      },
+      "vocabulary": {
+        "weight": 0.2,
+        "max_score": 20,
+        "description": "Word choice and language sophistication"
+      }
+    },
+    "keywords": ["essay", "literature", "writing", "analysis", "argument", "thesis", "conclusion"],
+    "grade_boundaries": {
+      "A": 90,
+      "B": 80,
+      "C": 70,
+      "D": 60,
+      "F": 0
+    }
+  },
+  "science": {
+    "criteria": {
+      "accuracy": {
+        "weight": 0.5,
+        "max_score": 50,
+        "description": "Correctness of scientific facts and concepts"
+      },
+      "explanation": {
+        "weight": 0.3,
+        "max_score": 30,
+        "description": "Clarity of explanations and reasoning"
+      },
+      "methodology": {
+        "weight": 0.2,
+        "max_score": 20,
+        "description": "Scientific method and experimental design"
+      }
+    },
+    "keywords": ["experiment", "hypothesis", "theory", "analysis", "data", "conclusion", "method"],
+    "grade_boundaries": {
+      "A": 85,
+      "B": 75,
+      "C": 65,
+      "D": 55,
+      "F": 0
+    }
+  },
+  "mathematics": {
+    "criteria": {
+      "correctness": {
+        "weight": 0.6,
+        "max_score": 60,
+        "description": "Accuracy of mathematical calculations and final answer"
+      },
+      "method": {
+        "weight": 0.3,
+        "max_score": 30,
+        "description": "Appropriate mathematical methods and procedures"
+      },
+      "presentation": {
+        "weight": 0.1,
+        "max_score": 10,
+        "description": "Clear presentation of work and logical steps"
+      }
+    },
+    "keywords": ["equation", "solve", "calculate", "proof", "formula", "answer", "solution"],
+    "grade_boundaries": {
+      "A": 90,
+      "B": 80,
+      "C": 70,
+      "D": 60,
+      "F": 0
+    }
+  },
+  "history": {
+    "criteria": {
+      "content": {
+        "weight": 0.4,
+        "max_score": 40,
+        "description": "Historical knowledge and understanding"
+      },
+      "analysis": {
+        "weight": 0.3,
+        "max_score": 30,
+        "description": "Critical analysis and interpretation"
+      },
+      "evidence": {
+        "weight": 0.2,
+        "max_score": 20,
+        "description": "Use of historical evidence and sources"
+      },
+      "communication": {
+        "weight": 0.1,
+        "max_score": 10,
+        "description": "Clear written communication"
+      }
+    },
+    "keywords": ["historical", "evidence", "source", "analyze", "period", "cause", "effect"],
+    "grade_boundaries": {
+      "A": 85,
+      "B": 75,
+      "C": 65,
+      "D": 55,
+      "F": 0
+    }
+  },
+  "geography": {
+    "criteria": {
+      "knowledge": {
+        "weight": 0.4,
+        "max_score": 40,
+        "description": "Geographical knowledge and understanding"
+      },
+      "analysis": {
+        "weight": 0.3,
+        "max_score": 30,
+        "description": "Spatial analysis and interpretation"
+      },
+      "application": {
+        "weight": 0.2,
+        "max_score": 20,
+        "description": "Application of geographical concepts"
+      },
+      "communication": {
+        "weight": 0.1,
+        "max_score": 10,
+        "description": "Use of geographical terminology"
+      }
+    },
+    "keywords": ["location", "spatial", "environment", "region", "climate", "population", "development"],
+    "grade_boundaries": {
+      "A": 85,
+      "B": 75,
+      "C": 65,
+      "D": 55,
+      "F": 0
+    }
+  }
+}
